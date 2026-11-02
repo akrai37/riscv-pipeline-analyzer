@@ -32,6 +32,7 @@ add_library(rvsim_core
   src/isa.cpp
   src/elf.cpp
   src/exec.cpp
+  src/fuzz.cpp
   src/memory.cpp
   src/host.cpp
   src/lockstep.cpp
@@ -44,6 +45,9 @@ target_link_libraries(rvsim_core PRIVATE rvsim_warnings)
 add_executable(rvsim src/main.cpp)
 target_link_libraries(rvsim PRIVATE rvsim_core rvsim_warnings)
 target_compile_definitions(rvsim PRIVATE RVSIM_VERSION="${PROJECT_VERSION}")
+
+add_executable(rvsim-fuzz tools/fuzz_main.cpp)
+target_link_libraries(rvsim-fuzz PRIVATE rvsim_core rvsim_warnings)
 
 if(RVSIM_BUILD_TESTS)
   enable_testing()

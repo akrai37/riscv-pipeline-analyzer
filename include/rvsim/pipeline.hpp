@@ -63,6 +63,11 @@ struct PipelineStats {
   uint64_t other_jalr_mispredicts = 0;
   uint64_t control_btb_hits = 0;  // control-flow instructions found in the BTB at fetch
 
+  // Operands taken from a bypass instead of the register file.
+  uint64_t bypass_ex_mem = 0;      // EX/MEM -> EX
+  uint64_t bypass_mem_wb = 0;      // MEM/WB -> EX
+  uint64_t bypass_store_data = 0;  // MEM/WB -> MEM (store data)
+
   uint64_t lost_cycles(StallCause c) const { return lost[static_cast<std::size_t>(c)]; }
   uint64_t total_lost() const;
   double cpi() const { return retired == 0 ? 0.0 : static_cast<double>(cycles) / retired; }
@@ -138,11 +143,11 @@ class Pipeline {
   static Slot bubble(StallCause cause);
 
   std::optional<Retired> writeback();
-  Slot memory_stage() const;
+  Slot memory_stage();
   std::optional<Redirect> execute(Slot& s);
   std::optional<StallCause> hazard(const Slot& s) const;
   void decode(Slot& s);
-  uint32_t forward(unsigned reg, uint32_t value) const;
+  uint32_t forward(unsigned reg, uint32_t value);
   Slot fetch();
   unsigned latency(Op op) const;
 

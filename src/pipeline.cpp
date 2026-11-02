@@ -91,7 +91,6 @@ std::optional<Retired> Pipeline::cycle() {
   if (halted_) {
     throw SimError("cycle after program exit");
   }
-  ++stats_.cycles;
 
   std::string trace_id, trace_ex, trace_mem, trace_wb, trace_if, trace_event;
   if (trace_ != nullptr) {
@@ -113,6 +112,10 @@ std::optional<Retired> Pipeline::cycle() {
   // order models a single clock edge. WB first also gives the register file
   // its write-before-read behaviour for ID.
   std::optional<Retired> retired = writeback();
+  // Counted only once WB completes: a fault ends the run inside this cycle,
+  // so a cycle that neither retires nor loses a slot is never counted and
+  // cycles == retired + lost holds for faulting runs too.
+  ++stats_.cycles;
   if (halted_) {
     trace_if = describe_no_fetch(StallCause::Serialize);
     trace_event = "exit";
@@ -229,7 +232,7 @@ std::optional<Retired> Pipeline::writeback() {
   return r;
 }
 
-Pipeline::Slot Pipeline::memory_stage() const {
+Pipeline::Slot Pipeline::memory_stage() {
   Slot s = ex_mem_;
   if (!s.valid || !s.fault.empty()) {
     return s;
@@ -247,6 +250,7 @@ Pipeline::Slot Pipeline::memory_stage() const {
       if (config_.forwarding && s.in.rs2 != 0 && mem_wb_.valid && mem_wb_.writes &&
           mem_wb_.rd == s.in.rs2) {
         data = mem_wb_.result;
+        ++stats_.bypass_store_data;
       }
       mem_.store(s.mem_addr, size, data);
       s.store_value = size == 4 ? data : data & ((1u << (8 * size)) - 1);
@@ -257,16 +261,23 @@ Pipeline::Slot Pipeline::memory_stage() const {
   return s;
 }
 
-uint32_t Pipeline::forward(unsigned reg, uint32_t value) const {
+uint32_t Pipeline::forward(unsigned reg, uint32_t value) {
+  // Unused register fields decode as x0, so this also skips operands the
+  // instruction does not read.
   if (!config_.forwarding || reg == 0) {
     return value;
   }
   if (ex_mem_.valid && ex_mem_.writes && ex_mem_.rd == reg) {
     // A load in MEM has no data yet. Only store data can get here (the
     // hazard unit stalls every other consumer), and MEM re-forwards it.
-    return is_load(ex_mem_.in.op) ? value : ex_mem_.result;
+    if (is_load(ex_mem_.in.op)) {
+      return value;
+    }
+    ++stats_.bypass_ex_mem;
+    return ex_mem_.result;
   }
   if (mem_wb_.valid && mem_wb_.writes && mem_wb_.rd == reg) {
+    ++stats_.bypass_mem_wb;
     return mem_wb_.result;
   }
   return value;

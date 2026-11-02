@@ -11,6 +11,7 @@ add_executable(rvsim_tests
   decoder_test.cpp
   elf_test.cpp
   exec_test.cpp
+  fuzz_test.cpp
   memory_test.cpp
   pipeline_test.cpp
   predictor_test.cpp

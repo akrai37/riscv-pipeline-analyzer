@@ -306,6 +306,8 @@ TEST(PipelineFaults, IllegalInstructionFaultsAtWriteback) {
   EXPECT_THROW(pipe.run(1000), rvsim::SimError);
   EXPECT_EQ(pipe.stats().retired, 1u);  // only the instruction before it
   EXPECT_EQ(pipe.regs()[t1], 0u);       // nothing after it retired
+  // The faulting cycle ends the run and is not counted.
+  EXPECT_EQ(pipe.stats().cycles, pipe.stats().retired + pipe.stats().total_lost());
 }
 
 TEST(PipelineFaults, StoreAfterFaultingLoadDoesNotWrite) {
