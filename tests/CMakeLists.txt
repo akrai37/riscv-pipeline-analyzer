@@ -12,6 +12,8 @@ add_executable(rvsim_tests
   elf_test.cpp
   exec_test.cpp
   memory_test.cpp
+  pipeline_test.cpp
+  predictor_test.cpp
   program_test.cpp
   reference_test.cpp)
 target_link_libraries(rvsim_tests PRIVATE rvsim_core GTest::gtest_main)
