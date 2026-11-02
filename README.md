@@ -25,9 +25,65 @@ Options:
 ## Run
 
 ```sh
-./build/rvsim workloads/bin/matmul.elf
-ctest --test-dir build        # unit tests, riscv-tests, workloads
+./build/rvsim --stats workloads/bin/matmul.elf            # pipeline model, CPI breakdown
+./build/rvsim --lockstep workloads/bin/qsort.elf          # check against the reference model
+./build/rvsim --no-forwarding --predictor not-taken --ras 0 --stats workloads/bin/fib.elf
+./build/rvsim --trace workloads/bin/fib.elf 2>&1 | head   # one line per cycle
+./build/rvsim --model ref workloads/bin/crc32.elf         # sequential reference model
+ctest --test-dir build -j8                                # all tests
 ```
+
+## Pipeline model
+
+Classic in-order IF / ID / EX / MEM / WB, cycle-accurate for this modeled
+microarchitecture ([src/pipeline.cpp](src/pipeline.cpp)):
+
+- Pipeline registers are double-buffered: every stage computes the next latch
+  contents from the current ones, so one call to `cycle()` is one clock edge.
+- The register file is written in the first half of a cycle and read in the second.
+- Forwarding EX/MEM -> EX and MEM/WB -> EX, plus MEM/WB -> MEM for store data, so a
+  load followed by a store of the loaded value does not stall. x0 is never forwarded.
+- Multiply and divide hold EX for a configurable latency (3 and 32 cycles by default).
+- Branches and jumps resolve in EX. Prediction happens in IF: a direct-mapped BTB
+  identifies control-flow instructions and their targets before decode, a 2-bit
+  pattern table (or BTFN, or always-not-taken) picks the direction, and a return
+  address stack, checkpointed per fetched instruction and restored on a
+  misprediction, predicts returns.
+- Split instruction and data ports onto one memory, so there is no structural hazard
+  between IF and MEM.
+- `ecall` waits in ID until older instructions have retired, then runs there, so a
+  syscall never executes speculatively.
+- Faults travel with the instruction and are raised only at writeback, so wrong-path
+  instructions cannot fault a correct program.
+
+| Event | Cycles lost |
+|---|---:|
+| Dependent ALU instruction (forwarding on) | 0 |
+| Load followed by a use of its result | 1 |
+| Load followed by a store of its result | 0 |
+| Dependent instruction, forwarding off (distance 1 / 2 / 3) | 2 / 1 / 0 |
+| Multiply / divide | latency − 1 |
+| Branch, correctly predicted (not taken, or taken with a BTB hit) | 0 |
+| Branch mispredicted, or taken with a BTB miss | 2 |
+| `jal` with a BTB hit / miss | 0 / 2 |
+| `jalr` or return with a correct / wrong predicted target | 0 / 2 |
+
+Every bubble is tagged with the cause that created it and counted when it reaches
+writeback, so `cycles = instructions + lost cycles` holds exactly and the CPI breakdown
+from `--stats` sums with nothing left over. Each row of the table is a test in
+[tests/pipeline_test.cpp](tests/pipeline_test.cpp).
+
+## Verification
+
+- **Lockstep**: the pipeline is run against the sequential reference model and every
+  retired instruction (PC, encoding, register write, store) is compared; at exit, so
+  are the exit code, the program output and the register file. Every program runs in
+  lockstep under four pipeline configurations on every `ctest` run.
+- **riscv-tests**: the official RV32UI and RV32UM suites.
+- **Directed timing tests**: exact cycle costs for each hazard, each also run in
+  lockstep.
+- **Unit tests**: decoder (against `llvm-mc` encodings), instruction semantics, memory,
+  ELF loader, predictor.
 
 ## Programs
 
