@@ -37,7 +37,35 @@ jobs:
         run: cmake --build build -j
 
       - name: Test
+        run: ctest --test-dir build --output-on-failure
+
+  # The tests above run the committed prebuilt programs. This job rebuilds
+  # them from source with Ubuntu's clang, a different compiler version from
+  # the one that produced the committed binaries, and runs the result, so
+  # the sources and the runtime cannot drift from the binaries unnoticed.
+  rebuilt-programs:
+    name: rebuilt programs / ubuntu clang
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install RISC-V capable clang and lld
+        run: sudo apt-get update && sudo apt-get install -y clang lld
+
+      - name: Build programs
+        run: make -C workloads OUT="$PWD/out" -j
+
+      - name: Build simulator
         run: |
-          if [ -f build/CTestTestfile.cmake ]; then
-            ctest --test-dir build --output-on-failure
-          fi
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DRVSIM_BUILD_TESTS=OFF
+          cmake --build build -j
+
+      - name: Run programs
+        run: |
+          count=0
+          for f in out/workloads/*.elf out/riscv-tests/*.elf; do
+            ./build/rvsim -q "$f" > /dev/null || { echo "FAILED: $f"; exit 1; }
+            count=$((count + 1))
+          done
+          echo "$count programs passed"
+          test "$count" -eq 55

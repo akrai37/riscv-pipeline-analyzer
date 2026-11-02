@@ -30,6 +30,7 @@ endif()
 
 add_library(rvsim_core
   src/isa.cpp
+  src/elf.cpp
   src/exec.cpp
   src/memory.cpp
   src/host.cpp
