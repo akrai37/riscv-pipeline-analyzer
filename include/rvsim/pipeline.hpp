@@ -70,7 +70,9 @@ struct PipelineStats {
 
   uint64_t lost_cycles(StallCause c) const { return lost[static_cast<std::size_t>(c)]; }
   uint64_t total_lost() const;
-  double cpi() const { return retired == 0 ? 0.0 : static_cast<double>(cycles) / retired; }
+  double cpi() const {
+    return retired == 0 ? 0.0 : static_cast<double>(cycles) / static_cast<double>(retired);
+  }
 };
 
 // Cycle-accurate model of a classic in-order 5-stage pipeline:

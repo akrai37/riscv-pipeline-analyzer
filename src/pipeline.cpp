@@ -222,9 +222,9 @@ std::optional<Retired> Pipeline::writeback() {
     r.store_value = s.store_value;
     ++stats_.stores;
   }
-  stats_.loads += is_load(op) ? 1 : 0;
-  stats_.muls += is_mul(op) ? 1 : 0;
-  stats_.divs += is_div(op) ? 1 : 0;
+  stats_.loads += is_load(op) ? 1u : 0u;
+  stats_.muls += is_mul(op) ? 1u : 0u;
+  stats_.divs += is_div(op) ? 1u : 0u;
   ++stats_.retired;
   if (s.exits) {
     halted_ = true;
@@ -317,23 +317,23 @@ std::optional<Pipeline::Redirect> Pipeline::execute(Slot& s) {
   StallCause cause;
   if (is_branch(in.op)) {
     ++stats_.branches;
-    stats_.branches_taken += taken ? 1 : 0;
-    stats_.branch_mispredicts += mispredicted ? 1 : 0;
+    stats_.branches_taken += taken ? 1u : 0u;
+    stats_.branch_mispredicts += mispredicted ? 1u : 0u;
     cause = StallCause::BranchMispredict;
   } else if (in.op == Op::Jal) {
     ++stats_.jals;
-    stats_.jal_misses += mispredicted ? 1 : 0;
+    stats_.jal_misses += mispredicted ? 1u : 0u;
     cause = StallCause::JalMiss;
   } else if (ras_action(in) == RasAction::Pop) {
     ++stats_.returns;
-    stats_.return_mispredicts += mispredicted ? 1 : 0;
+    stats_.return_mispredicts += mispredicted ? 1u : 0u;
     cause = StallCause::ReturnMispredict;
   } else {
     ++stats_.other_jalrs;
-    stats_.other_jalr_mispredicts += mispredicted ? 1 : 0;
+    stats_.other_jalr_mispredicts += mispredicted ? 1u : 0u;
     cause = StallCause::JalrMispredict;
   }
-  stats_.control_btb_hits += s.pred.btb_hit ? 1 : 0;
+  stats_.control_btb_hits += s.pred.btb_hit ? 1u : 0u;
 
   if (!mispredicted) {
     return std::nullopt;

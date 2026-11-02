@@ -188,10 +188,10 @@ void print_stats(const rvsim::Pipeline& pipe) {
   for (std::size_t i = 0; i < rvsim::kStallCauses; ++i) {
     const auto cause = static_cast<rvsim::StallCause>(i);
     if (s.lost[i] != 0) {
-      std::fprintf(stderr, "  %-18s %10llu  %5.2f%% of cycles  CPI +%.4f\n",
-                   rvsim::stall_name(cause), static_cast<unsigned long long>(s.lost[i]),
-                   percent(s.lost[i], s.cycles),
-                   s.retired == 0 ? 0.0 : static_cast<double>(s.lost[i]) / s.retired);
+      std::fprintf(
+          stderr, "  %-18s %10llu  %5.2f%% of cycles  CPI +%.4f\n", rvsim::stall_name(cause),
+          static_cast<unsigned long long>(s.lost[i]), percent(s.lost[i], s.cycles),
+          s.retired == 0 ? 0.0 : static_cast<double>(s.lost[i]) / static_cast<double>(s.retired));
     }
   }
   const uint64_t control = s.branches + s.jals + s.returns + s.other_jalrs;
