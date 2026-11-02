@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 460" width="760" height="460" role="img" aria-label="Forwarding">
+<style>text{font-family:system-ui, -apple-system, "Segoe UI", sans-serif}.surface{fill:#fcfcfb}.ink{fill:#0b0b0b}.ink2{fill:#52514e}.muted{fill:#898781}.grid{fill:#e1e0d9}.axis{fill:#c3c2b7}.base{fill:#c3c2b7}.s1{fill:#2a78d6}.s2{fill:#eb6834}.s3{fill:#1baf7a}.gridline{stroke:#e1e0d9}.baseline{stroke:#c3c2b7}@media (prefers-color-scheme: dark){.surface{fill:#1a1a19}.ink{fill:#f0efec}.ink2{fill:#c3c2b7}.muted{fill:#898781}.grid{fill:#2c2c2a}.axis{fill:#383835}.base{fill:#52514e}.s1{fill:#3987e5}.s2{fill:#d95926}.s3{fill:#199e70}.gridline{stroke:#2c2c2a}.baseline{stroke:#383835}}</style>
+<rect class="surface" x="0" y="0" width="760" height="460" rx="8"/>
+<text class="ink" x="16" y="26" font-size="15" font-weight="600">Forwarding</text>
+<text class="ink2" x="16" y="45" font-size="12">CPI with the bypass network off and on (2-bit predictor in both)</text>
+<rect class="s2" x="16" y="56" width="10" height="10" rx="2"/>
+<text class="ink2" x="31" y="65" font-size="12">no forwarding</text>
+<rect class="s1" x="144" y="56" width="10" height="10" rx="2"/>
+<text class="ink2" x="159" y="65" font-size="12">forwarding</text>
+<line class="gridline" x1="112.0" x2="112.0" y1="72" y2="404" stroke-width="1"/>
+<text class="muted" x="112.0" y="420" font-size="11" text-anchor="middle">0.00</text>
+<line class="gridline" x1="228.8" x2="228.8" y1="72" y2="404" stroke-width="1"/>
+<text class="muted" x="228.8" y="420" font-size="11" text-anchor="middle">0.50</text>
+<line class="gridline" x1="345.6" x2="345.6" y1="72" y2="404" stroke-width="1"/>
+<text class="muted" x="345.6" y="420" font-size="11" text-anchor="middle">1.00</text>
+<line class="gridline" x1="462.4" x2="462.4" y1="72" y2="404" stroke-width="1"/>
+<text class="muted" x="462.4" y="420" font-size="11" text-anchor="middle">1.50</text>
+<line class="gridline" x1="579.2" x2="579.2" y1="72" y2="404" stroke-width="1"/>
+<text class="muted" x="579.2" y="420" font-size="11" text-anchor="middle">2.00</text>
+<line class="gridline" x1="696.0" x2="696.0" y1="72" y2="404" stroke-width="1"/>
+<text class="muted" x="696.0" y="420" font-size="11" text-anchor="middle">2.50</text>
+<text class="muted" x="404.0" y="438" font-size="11" text-anchor="middle">cycles per instruction</text>
+<text class="ink" x="102" y="97.0" font-size="12" text-anchor="end">matmul</text>
+<path class="s2" d="M112.0,78.0h429.8a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-429.8z"><title>matmul, no forwarding: 1.86</title></path>
+<text class="ink2" x="551.8" y="89" font-size="11">1.86</text>
+<path class="s1" d="M112.0,94.0h318.7a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-318.7z"><title>matmul, forwarding: 1.38</title></path>
+<text class="ink2" x="440.7" y="105" font-size="11">1.38</text>
+<text class="ink" x="102" y="145.0" font-size="12" text-anchor="end">qsort</text>
+<path class="s2" d="M112.0,126.0h349.0a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-349.0z"><title>qsort, no forwarding: 1.51</title></path>
+<text class="ink2" x="471.0" y="137" font-size="11">1.51</text>
+<path class="s1" d="M112.0,142.0h255.1a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-255.1z"><title>qsort, forwarding: 1.11</title></path>
+<text class="ink2" x="377.1" y="153" font-size="11">1.11</text>
+<text class="ink" x="102" y="193.0" font-size="12" text-anchor="end">linked_list</text>
+<path class="s2" d="M112.0,174.0h326.8a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-326.8z"><title>linked_list, no forwarding: 1.42</title></path>
+<text class="ink2" x="448.8" y="185" font-size="11">1.42</text>
+<path class="s1" d="M112.0,190.0h240.1a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-240.1z"><title>linked_list, forwarding: 1.05</title></path>
+<text class="ink2" x="362.1" y="201" font-size="11">1.05</text>
+<text class="ink" x="102" y="241.0" font-size="12" text-anchor="end">bsearch</text>
+<path class="s2" d="M112.0,222.0h551.3a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-551.3z"><title>bsearch, no forwarding: 2.38</title></path>
+<text class="ink2" x="673.3" y="233" font-size="11">2.38</text>
+<path class="s1" d="M112.0,238.0h274.5a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-274.5z"><title>bsearch, forwarding: 1.19</title></path>
+<text class="ink2" x="396.5" y="249" font-size="11">1.19</text>
+<text class="ink" x="102" y="289.0" font-size="12" text-anchor="end">fib</text>
+<path class="s2" d="M112.0,270.0h305.3a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-305.3z"><title>fib, no forwarding: 1.32</title></path>
+<text class="ink2" x="427.3" y="281" font-size="11">1.32</text>
+<path class="s1" d="M112.0,286.0h251.2a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-251.2z"><title>fib, forwarding: 1.09</title></path>
+<text class="ink2" x="373.2" y="297" font-size="11">1.09</text>
+<text class="ink" x="102" y="337.0" font-size="12" text-anchor="end">crc32</text>
+<path class="s2" d="M112.0,318.0h370.8a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-370.8z"><title>crc32, no forwarding: 1.60</title></path>
+<text class="ink2" x="492.8" y="329" font-size="11">1.60</text>
+<path class="s1" d="M112.0,334.0h233.9a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-233.9z"><title>crc32, forwarding: 1.02</title></path>
+<text class="ink2" x="355.9" y="345" font-size="11">1.02</text>
+<text class="ink" x="102" y="385.0" font-size="12" text-anchor="end">memops</text>
+<path class="s2" d="M112.0,366.0h401.3a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-401.3z"><title>memops, no forwarding: 1.73</title></path>
+<text class="ink2" x="523.3" y="377" font-size="11">1.73</text>
+<path class="s1" d="M112.0,382.0h248.4a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-248.4z"><title>memops, forwarding: 1.08</title></path>
+<text class="ink2" x="370.4" y="393" font-size="11">1.08</text>
+<line class="baseline" x1="112.0" x2="112.0" y1="72" y2="404" stroke-width="1"/>
+</svg>

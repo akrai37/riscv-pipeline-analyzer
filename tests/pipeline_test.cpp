@@ -18,6 +18,7 @@
 #include "rvsim/lockstep.hpp"
 #include "rvsim/memory.hpp"
 #include "rvsim/reference.hpp"
+#include "rvsim/report.hpp"
 
 namespace {
 
@@ -324,6 +325,20 @@ TEST(PipelineSyscalls, EcallResultIsForwarded) {
                                   addi(a7, zero, 64), ecall(), add(a3, a0, a0)}),
                        {}, init);
   EXPECT_EQ(r.regs[a3], 6u);
+}
+
+TEST(PipelineReport, JsonCarriesConfigAndCounters) {
+  Memory mem = load(with_exit({addi(t0, zero, 3), mul(t1, t0, t0)}), {});
+  PipelineConfig c;
+  c.predictor.direction = rvsim::DirectionPredictor::Btfn;
+  Pipeline pipe(mem, kBase, c);
+  pipe.run(1000);
+  const std::string json = rvsim::stats_json(pipe.config(), pipe.stats());
+  EXPECT_NE(json.find("\"predictor\": \"btfn\""), std::string::npos);
+  EXPECT_NE(json.find("\"cycles\": " + std::to_string(pipe.stats().cycles) + ","),
+            std::string::npos);
+  EXPECT_NE(json.find("\"mul/div\": 2"), std::string::npos);
+  EXPECT_NE(json.find("\"muls\": 1"), std::string::npos);
 }
 
 TEST(PipelineTrace, OneLinePerCycle) {

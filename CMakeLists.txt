@@ -38,7 +38,8 @@ add_library(rvsim_core
   src/lockstep.cpp
   src/pipeline.cpp
   src/predictor.cpp
-  src/reference.cpp)
+  src/reference.cpp
+  src/report.cpp)
 target_include_directories(rvsim_core PUBLIC include)
 target_link_libraries(rvsim_core PRIVATE rvsim_warnings)
 

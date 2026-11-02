@@ -1,6 +1,9 @@
-// Pointer chasing through a list linked in shuffled order. Every step is
-// `p = p->next` followed by a use of p, a back-to-back load-use dependency
-// that forwarding cannot hide.
+// Pointer chasing through a list linked in shuffled order: each step's
+// loads depend on the previous step's `p->next` load, a serial
+// load-to-load chain. At -O2 clang schedules the value load and the loop
+// bookkeeping between the next-pointer load and its use, which hides the
+// one-cycle load-use penalty with forwarding; without forwarding the chain
+// costs two stall cycles per step.
 
 #include "rt.h"
 

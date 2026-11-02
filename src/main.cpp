@@ -2,6 +2,8 @@
 #include <cstdio>
 #include <cstdlib>
 #include <exception>
+#include <fstream>
+#include <stdexcept>
 #include <string>
 #include <string_view>
 
@@ -12,6 +14,7 @@
 #include "rvsim/pipeline.hpp"
 #include "rvsim/platform.hpp"
 #include "rvsim/reference.hpp"
+#include "rvsim/report.hpp"
 
 namespace {
 
@@ -32,6 +35,7 @@ struct Options {
   bool quiet = false;
   bool stats = false;
   bool trace = false;
+  std::string json;  // write pipeline statistics here as JSON
   rvsim::PipelineConfig pipeline;
 };
 
@@ -55,6 +59,7 @@ void print_usage(std::FILE* out) {
                "  --div-latency N         divide latency in cycles (default: 32)\n"
                "  --limit N               stop after N cycles (pipeline) or instructions (ref)\n"
                "  --stats                 print the CPI breakdown and branch statistics\n"
+               "  --json FILE             write the pipeline statistics to FILE as JSON\n"
                "  --trace                 print one line per cycle to stderr\n"
                "  -q, --quiet             do not print the summary line\n"
                "  --version               print the version and exit\n"
@@ -108,6 +113,8 @@ Options parse(int argc, char** argv) {
       opt.quiet = true;
     } else if (arg == "--stats") {
       opt.stats = true;
+    } else if (arg == "--json") {
+      opt.json = value();
     } else if (arg == "--trace") {
       opt.trace = true;
     } else if (arg == "--lockstep") {
@@ -152,6 +159,9 @@ Options parse(int argc, char** argv) {
   }
   if (opt.model != "pipeline" && opt.model != "ref") {
     usage_error("unknown model '" + opt.model + "'");
+  }
+  if (!opt.json.empty() && opt.model != "pipeline") {
+    usage_error("--json reports pipeline statistics");
   }
   if (opt.lockstep && opt.model != "pipeline") {
     usage_error("--lockstep runs the pipeline model");
@@ -202,6 +212,17 @@ void print_stats(const rvsim::Pipeline& pipe) {
   std::fprintf(stderr, "loads %llu  stores %llu  mul %llu  div %llu\n",
                static_cast<unsigned long long>(s.loads), static_cast<unsigned long long>(s.stores),
                static_cast<unsigned long long>(s.muls), static_cast<unsigned long long>(s.divs));
+}
+
+void write_json(const Options& opt, const rvsim::Pipeline& pipe) {
+  if (opt.json.empty()) {
+    return;
+  }
+  std::ofstream out(opt.json);
+  out << rvsim::stats_json(pipe.config(), pipe.stats());
+  if (!out) {
+    throw std::runtime_error("cannot write '" + opt.json + "'");
+  }
 }
 
 void write_output(const rvsim::Host& host) {
@@ -262,6 +283,7 @@ int run_pipeline(const Options& opt, const std::vector<uint8_t>& image) {
     if (opt.stats) {
       print_stats(pipe);
     }
+    write_json(opt, pipe);
     if (!opt.quiet || !r.ok()) {
       std::fprintf(stderr, "[rvsim] lockstep %s: %llu instructions matched%s%s\n",
                    rvsim::outcome_name(r.outcome), static_cast<unsigned long long>(r.compared),
@@ -291,6 +313,7 @@ int run_pipeline(const Options& opt, const std::vector<uint8_t>& image) {
   if (opt.stats) {
     print_stats(pipe);
   }
+  write_json(opt, pipe);
   return finish(opt, pipe.halted(), pipe.exit_code(), pipe.stats().retired, pipe.stats().cycles);
 }
 

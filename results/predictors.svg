@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 572" width="760" height="572" role="img" aria-label="Branch prediction">
+<style>text{font-family:system-ui, -apple-system, "Segoe UI", sans-serif}.surface{fill:#fcfcfb}.ink{fill:#0b0b0b}.ink2{fill:#52514e}.muted{fill:#898781}.grid{fill:#e1e0d9}.axis{fill:#c3c2b7}.base{fill:#c3c2b7}.s1{fill:#2a78d6}.s2{fill:#eb6834}.s3{fill:#1baf7a}.gridline{stroke:#e1e0d9}.baseline{stroke:#c3c2b7}@media (prefers-color-scheme: dark){.surface{fill:#1a1a19}.ink{fill:#f0efec}.ink2{fill:#c3c2b7}.muted{fill:#898781}.grid{fill:#2c2c2a}.axis{fill:#383835}.base{fill:#52514e}.s1{fill:#3987e5}.s2{fill:#d95926}.s3{fill:#199e70}.gridline{stroke:#2c2c2a}.baseline{stroke:#383835}}</style>
+<rect class="surface" x="0" y="0" width="760" height="572" rx="8"/>
+<text class="ink" x="16" y="26" font-size="15" font-weight="600">Branch prediction</text>
+<text class="ink2" x="16" y="45" font-size="12">Conditional-branch mispredict rate by direction predictor</text>
+<rect class="s2" x="16" y="56" width="10" height="10" rx="2"/>
+<text class="ink2" x="31" y="65" font-size="12">always not-taken</text>
+<rect class="s3" x="165" y="56" width="10" height="10" rx="2"/>
+<text class="ink2" x="180" y="65" font-size="12">BTFN</text>
+<rect class="s1" x="230" y="56" width="10" height="10" rx="2"/>
+<text class="ink2" x="245" y="65" font-size="12">2-bit counters</text>
+<line class="gridline" x1="112.0" x2="112.0" y1="72" y2="516" stroke-width="1"/>
+<text class="muted" x="112.0" y="532" font-size="11" text-anchor="middle">0%</text>
+<line class="gridline" x1="228.8" x2="228.8" y1="72" y2="516" stroke-width="1"/>
+<text class="muted" x="228.8" y="532" font-size="11" text-anchor="middle">20%</text>
+<line class="gridline" x1="345.6" x2="345.6" y1="72" y2="516" stroke-width="1"/>
+<text class="muted" x="345.6" y="532" font-size="11" text-anchor="middle">40%</text>
+<line class="gridline" x1="462.4" x2="462.4" y1="72" y2="516" stroke-width="1"/>
+<text class="muted" x="462.4" y="532" font-size="11" text-anchor="middle">60%</text>
+<line class="gridline" x1="579.2" x2="579.2" y1="72" y2="516" stroke-width="1"/>
+<text class="muted" x="579.2" y="532" font-size="11" text-anchor="middle">80%</text>
+<line class="gridline" x1="696.0" x2="696.0" y1="72" y2="516" stroke-width="1"/>
+<text class="muted" x="696.0" y="532" font-size="11" text-anchor="middle">100%</text>
+<text class="muted" x="404.0" y="550" font-size="11" text-anchor="middle">mispredicted conditional branches</text>
+<text class="ink" x="102" y="105.0" font-size="12" text-anchor="end">matmul</text>
+<path class="s2" d="M112.0,78.0h536.1a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-536.1z"><title>matmul, always not-taken: 92%</title></path>
+<text class="ink2" x="658.1" y="89" font-size="11">92%</text>
+<path class="s3" d="M112.0,94.0h7.5a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-7.5z"><title>matmul, BTFN: 2.0%</title></path>
+<text class="ink2" x="129.5" y="105" font-size="11">2.0%</text>
+<path class="s1" d="M112.0,110.0h7.5a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-7.5z"><title>matmul, 2-bit counters: 2.0%</title></path>
+<text class="ink2" x="129.5" y="121" font-size="11">2.0%</text>
+<text class="ink" x="102" y="169.0" font-size="12" text-anchor="end">qsort</text>
+<path class="s2" d="M112.0,142.0h272.9a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-272.9z"><title>qsort, always not-taken: 47%</title></path>
+<text class="ink2" x="394.9" y="153" font-size="11">47%</text>
+<path class="s3" d="M112.0,158.0h244.5a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-244.5z"><title>qsort, BTFN: 43%</title></path>
+<text class="ink2" x="366.5" y="169" font-size="11">43%</text>
+<path class="s1" d="M112.0,174.0h165.7a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-165.7z"><title>qsort, 2-bit counters: 29%</title></path>
+<text class="ink2" x="287.7" y="185" font-size="11">29%</text>
+<text class="ink" x="102" y="233.0" font-size="12" text-anchor="end">linked_list</text>
+<path class="s2" d="M112.0,206.0h454.8a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-454.8z"><title>linked_list, always not-taken: 79%</title></path>
+<text class="ink2" x="576.8" y="217" font-size="11">79%</text>
+<path class="s3" d="M112.0,222.0h0.0a0.13235358210646098,0.13235358210646098 0 0 1 0.13235358210646098,0.13235358210646098v13.7a0.13235358210646098,0.13235358210646098 0 0 1 -0.13235358210646098,0.13235358210646098h-0.0z"><title>linked_list, BTFN: 0.0%</title></path>
+<text class="ink2" x="118.1" y="233" font-size="11">0.0%</text>
+<path class="s1" d="M112.0,238.0h0.0a0.13235358210646098,0.13235358210646098 0 0 1 0.13235358210646098,0.13235358210646098v13.7a0.13235358210646098,0.13235358210646098 0 0 1 -0.13235358210646098,0.13235358210646098h-0.0z"><title>linked_list, 2-bit counters: 0.0%</title></path>
+<text class="ink2" x="118.1" y="249" font-size="11">0.0%</text>
+<text class="ink" x="102" y="297.0" font-size="12" text-anchor="end">bsearch</text>
+<path class="s2" d="M112.0,270.0h191.3a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-191.3z"><title>bsearch, always not-taken: 33%</title></path>
+<text class="ink2" x="313.3" y="281" font-size="11">33%</text>
+<path class="s3" d="M112.0,286.0h361.9a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-361.9z"><title>bsearch, BTFN: 63%</title></path>
+<text class="ink2" x="483.9" y="297" font-size="11">63%</text>
+<path class="s1" d="M112.0,302.0h103.7a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-103.7z"><title>bsearch, 2-bit counters: 18%</title></path>
+<text class="ink2" x="225.7" y="313" font-size="11">18%</text>
+<text class="ink" x="102" y="361.0" font-size="12" text-anchor="end">fib</text>
+<path class="s2" d="M112.0,334.0h219.1a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-219.1z"><title>fib, always not-taken: 38%</title></path>
+<text class="ink2" x="341.1" y="345" font-size="11">38%</text>
+<path class="s3" d="M112.0,350.0h288.0a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-288.0z"><title>fib, BTFN: 50%</title></path>
+<text class="ink2" x="410.0" y="361" font-size="11">50%</text>
+<path class="s1" d="M112.0,366.0h288.0a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-288.0z"><title>fib, 2-bit counters: 50%</title></path>
+<text class="ink2" x="410.0" y="377" font-size="11">50%</text>
+<text class="ink" x="102" y="425.0" font-size="12" text-anchor="end">crc32</text>
+<path class="s2" d="M112.0,398.0h515.1a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-515.1z"><title>crc32, always not-taken: 89%</title></path>
+<text class="ink2" x="637.1" y="409" font-size="11">89%</text>
+<path class="s3" d="M112.0,414.0h0.0a0.12661932896091344,0.12661932896091344 0 0 1 0.12661932896091344,0.12661932896091344v13.7a0.12661932896091344,0.12661932896091344 0 0 1 -0.12661932896091344,0.12661932896091344h-0.0z"><title>crc32, BTFN: 0.0%</title></path>
+<text class="ink2" x="118.1" y="425" font-size="11">0.0%</text>
+<path class="s1" d="M112.0,430.0h0.0a0.12661932896091344,0.12661932896091344 0 0 1 0.12661932896091344,0.12661932896091344v13.7a0.12661932896091344,0.12661932896091344 0 0 1 -0.12661932896091344,0.12661932896091344h-0.0z"><title>crc32, 2-bit counters: 0.0%</title></path>
+<text class="ink2" x="118.1" y="441" font-size="11">0.0%</text>
+<text class="ink" x="102" y="489.0" font-size="12" text-anchor="end">memops</text>
+<path class="s2" d="M112.0,462.0h427.0a4,4 0 0 1 4,4v6.0a4,4 0 0 1 -4,4h-427.0z"><title>memops, always not-taken: 74%</title></path>
+<text class="ink2" x="549.0" y="473" font-size="11">74%</text>
+<path class="s3" d="M112.0,478.0h0.0a0.05866074702051094,0.05866074702051094 0 0 1 0.05866074702051094,0.05866074702051094v13.9a0.05866074702051094,0.05866074702051094 0 0 1 -0.05866074702051094,0.05866074702051094h-0.0z"><title>memops, BTFN: 0.0%</title></path>
+<text class="ink2" x="118.1" y="489" font-size="11">0.0%</text>
+<path class="s1" d="M112.0,494.0h0.0a0.05866074702051094,0.05866074702051094 0 0 1 0.05866074702051094,0.05866074702051094v13.9a0.05866074702051094,0.05866074702051094 0 0 1 -0.05866074702051094,0.05866074702051094h-0.0z"><title>memops, 2-bit counters: 0.0%</title></path>
+<text class="ink2" x="118.1" y="505" font-size="11">0.0%</text>
+<line class="baseline" x1="112.0" x2="112.0" y1="72" y2="516" stroke-width="1"/>
+</svg>

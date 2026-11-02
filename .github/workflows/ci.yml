@@ -44,6 +44,14 @@ jobs:
       - name: Fuzz
         run: ./build/rvsim-fuzz --seeds ${{ matrix.config == 'release' && '50000' || '5000' }}
 
+      # The simulator is deterministic and the programs are committed, so the
+      # published results must regenerate byte for byte.
+      - name: Results are reproducible
+        if: matrix.config == 'release'
+        run: |
+          python3 scripts/run_experiments.py --rvsim build/rvsim --out fresh-results
+          diff -r results fresh-results
+
   # The tests above run the committed prebuilt programs. This job rebuilds
   # them from source with Ubuntu's clang, a different compiler version from
   # the one that produced the committed binaries, and runs the result, so

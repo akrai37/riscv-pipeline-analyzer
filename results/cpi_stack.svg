@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 408" width="760" height="408" role="img" aria-label="Where the cycles go">
+<style>text{font-family:system-ui, -apple-system, "Segoe UI", sans-serif}.surface{fill:#fcfcfb}.ink{fill:#0b0b0b}.ink2{fill:#52514e}.muted{fill:#898781}.grid{fill:#e1e0d9}.axis{fill:#c3c2b7}.base{fill:#c3c2b7}.s1{fill:#2a78d6}.s2{fill:#eb6834}.s3{fill:#1baf7a}.gridline{stroke:#e1e0d9}.baseline{stroke:#c3c2b7}@media (prefers-color-scheme: dark){.surface{fill:#1a1a19}.ink{fill:#f0efec}.ink2{fill:#c3c2b7}.muted{fill:#898781}.grid{fill:#2c2c2a}.axis{fill:#383835}.base{fill:#52514e}.s1{fill:#3987e5}.s2{fill:#d95926}.s3{fill:#199e70}.gridline{stroke:#2c2c2a}.baseline{stroke:#383835}}</style>
+<rect class="surface" x="0" y="0" width="760" height="408" rx="8"/>
+<text class="ink" x="16" y="26" font-size="15" font-weight="600">Where the cycles go</text>
+<text class="ink2" x="16" y="45" font-size="12">CPI of the baseline pipeline, split by cause</text>
+<rect class="base" x="16" y="56" width="10" height="10" rx="2"/>
+<text class="ink2" x="31" y="65" font-size="12">1 per instruction</text>
+<rect class="s1" x="172" y="56" width="10" height="10" rx="2"/>
+<text class="ink2" x="187" y="65" font-size="12">load-use stalls</text>
+<rect class="s2" x="314" y="56" width="10" height="10" rx="2"/>
+<text class="ink2" x="329" y="65" font-size="12">mul/div stalls</text>
+<rect class="s3" x="449" y="56" width="10" height="10" rx="2"/>
+<text class="ink2" x="464" y="65" font-size="12">control-flow flushes</text>
+<line class="gridline" x1="112.0" x2="112.0" y1="72" y2="334" stroke-width="1"/>
+<text class="muted" x="112.0" y="350" font-size="11" text-anchor="middle">0.00</text>
+<line class="gridline" x1="306.7" x2="306.7" y1="72" y2="334" stroke-width="1"/>
+<text class="muted" x="306.7" y="350" font-size="11" text-anchor="middle">0.50</text>
+<line class="gridline" x1="501.3" x2="501.3" y1="72" y2="334" stroke-width="1"/>
+<text class="muted" x="501.3" y="350" font-size="11" text-anchor="middle">1.00</text>
+<line class="gridline" x1="696.0" x2="696.0" y1="72" y2="334" stroke-width="1"/>
+<text class="muted" x="696.0" y="350" font-size="11" text-anchor="middle">1.50</text>
+<text class="muted" x="404.0" y="368" font-size="11" text-anchor="middle">cycles per instruction</text>
+<text class="ink" x="102" y="92.0" font-size="12" text-anchor="end">matmul</text>
+<rect class="base" x="112.0" y="78" width="387.3" height="20"><title>matmul: 1 per instruction 1.00</title></rect>
+<rect class="s1" x="501.3" y="78" width="46.8" height="20"><title>matmul: load-use stalls 0.13</title></rect>
+<rect class="s2" x="550.2" y="78" width="95.7" height="20"><title>matmul: mul/div stalls 0.25</title></rect>
+<path class="s3" d="M647.8,78.0h0.0a2.098799998548529,2.098799998548529 0 0 1 2.098799998548529,2.098799998548529v15.8a2.098799998548529,2.098799998548529 0 0 1 -2.098799998548529,2.098799998548529h-0.0z"><title>matmul: control-flow flushes 0.01</title></path>
+<text class="ink2" x="655.9" y="92.0" font-size="11">1.38</text>
+<text class="ink" x="102" y="130.0" font-size="12" text-anchor="end">qsort</text>
+<rect class="base" x="112.0" y="116" width="387.3" height="20"><title>qsort: 1 per instruction 1.00</title></rect>
+<rect class="s1" x="501.3" y="116" width="2.7" height="20"><title>qsort: load-use stalls 0.01</title></rect>
+<path class="s3" d="M506.0,116.0h33.8a4,4 0 0 1 4,4v12.0a4,4 0 0 1 -4,4h-33.8z"><title>qsort: control-flow flushes 0.10</title></path>
+<text class="ink2" x="549.9" y="130.0" font-size="11">1.11</text>
+<text class="ink" x="102" y="168.0" font-size="12" text-anchor="end">linked_list</text>
+<rect class="base" x="112.0" y="154" width="387.3" height="20"><title>linked_list: 1 per instruction 1.00</title></rect>
+<rect class="s1" x="501.3" y="154" width="6.7" height="20"><title>linked_list: load-use stalls 0.02</title></rect>
+<path class="s2" d="M510.1,154.0h4.7a4,4 0 0 1 4,4v12.0a4,4 0 0 1 -4,4h-4.7z"><title>linked_list: mul/div stalls 0.02</title></path>
+<text class="ink2" x="524.8" y="168.0" font-size="11">1.05</text>
+<text class="ink" x="102" y="206.0" font-size="12" text-anchor="end">bsearch</text>
+<rect class="base" x="112.0" y="192" width="387.3" height="20"><title>bsearch: 1 per instruction 1.00</title></rect>
+<rect class="s1" x="501.3" y="192" width="29.6" height="20"><title>bsearch: load-use stalls 0.08</title></rect>
+<rect class="s2" x="532.9" y="192" width="8.0" height="20"><title>bsearch: mul/div stalls 0.03</title></rect>
+<path class="s3" d="M542.9,192.0h29.3a4,4 0 0 1 4,4v12.0a4,4 0 0 1 -4,4h-29.3z"><title>bsearch: control-flow flushes 0.09</title></path>
+<text class="ink2" x="582.2" y="206.0" font-size="11">1.19</text>
+<text class="ink" x="102" y="244.0" font-size="12" text-anchor="end">fib</text>
+<rect class="base" x="112.0" y="230" width="387.3" height="20"><title>fib: 1 per instruction 1.00</title></rect>
+<path class="s3" d="M501.3,230.0h32.0a4,4 0 0 1 4,4v12.0a4,4 0 0 1 -4,4h-32.0z"><title>fib: control-flow flushes 0.09</title></path>
+<text class="ink2" x="543.4" y="244.0" font-size="11">1.09</text>
+<text class="ink" x="102" y="282.0" font-size="12" text-anchor="end">crc32</text>
+<rect class="base" x="112.0" y="268" width="387.3" height="20"><title>crc32: 1 per instruction 1.00</title></rect>
+<path class="s1" d="M501.3,268.0h3.1a4,4 0 0 1 4,4v12.0a4,4 0 0 1 -4,4h-3.1z"><title>crc32: load-use stalls 0.02</title></path>
+<text class="ink2" x="514.4" y="282.0" font-size="11">1.02</text>
+<text class="ink" x="102" y="320.0" font-size="12" text-anchor="end">memops</text>
+<rect class="base" x="112.0" y="306" width="387.3" height="20"><title>memops: 1 per instruction 1.00</title></rect>
+<rect class="s1" x="501.3" y="306" width="20.5" height="20"><title>memops: load-use stalls 0.06</title></rect>
+<path class="s2" d="M523.8,306.0h4.8a4,4 0 0 1 4,4v12.0a4,4 0 0 1 -4,4h-4.8z"><title>memops: mul/div stalls 0.02</title></path>
+<text class="ink2" x="538.6" y="320.0" font-size="11">1.08</text>
+<line class="baseline" x1="112.0" x2="112.0" y1="72" y2="334" stroke-width="1"/>
+<text class="muted" x="16" y="396" font-size="11">Forwarding on, 2-bit predictor, 64-entry BTB, 8-entry RAS, 3-cycle multiply, 32-cycle divide.</text>
+</svg>

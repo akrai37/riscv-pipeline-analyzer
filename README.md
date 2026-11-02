@@ -105,7 +105,7 @@ same source (`make host`).
 |---|---:|---|
 | `matmul` | 0.92M | 48x48 integer matrix multiply: load-use chains into `mul` |
 | `qsort` | 0.66M | Quicksort of 4000 random keys: data-dependent branches |
-| `linked_list` | 0.73M | Pointer chasing through a shuffled list: back-to-back load-use |
+| `linked_list` | 0.73M | Pointer chasing through a shuffled list: a serial load-to-load chain |
 | `bsearch` | 1.56M | 10,000 binary searches: hard-to-predict branches |
 | `fib` | 0.62M | Recursive Fibonacci: calls, returns, stack traffic |
 | `crc32` | 0.90M | Bitwise CRC-32 over 16 KiB: long ALU dependency chains |
