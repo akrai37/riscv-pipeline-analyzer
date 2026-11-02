@@ -12,6 +12,7 @@ endif()
 
 option(RVSIM_WERROR "Treat compiler warnings as errors" OFF)
 option(RVSIM_SANITIZE "Build with AddressSanitizer and UndefinedBehaviorSanitizer" OFF)
+option(RVSIM_BUILD_TESTS "Build the unit and integration tests" ON)
 
 if(RVSIM_SANITIZE)
   add_compile_options(-fsanitize=address,undefined -fno-omit-frame-pointer -fno-sanitize-recover=all)
@@ -27,6 +28,20 @@ if(RVSIM_WERROR)
   target_compile_options(rvsim_warnings INTERFACE -Werror)
 endif()
 
+add_library(rvsim_core
+  src/isa.cpp
+  src/exec.cpp
+  src/memory.cpp
+  src/host.cpp
+  src/reference.cpp)
+target_include_directories(rvsim_core PUBLIC include)
+target_link_libraries(rvsim_core PRIVATE rvsim_warnings)
+
 add_executable(rvsim src/main.cpp)
-target_link_libraries(rvsim PRIVATE rvsim_warnings)
+target_link_libraries(rvsim PRIVATE rvsim_core rvsim_warnings)
 target_compile_definitions(rvsim PRIVATE RVSIM_VERSION="${PROJECT_VERSION}")
+
+if(RVSIM_BUILD_TESTS)
+  enable_testing()
+  add_subdirectory(tests)
+endif()
